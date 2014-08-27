@@ -1,0 +1,18 @@
+<div class="row">
+  <div class="col-lg-4 col-sm-6" ng-repeat="album in albums.feed.entry">      
+    <div class="album-tile">
+      <a href="#/albums/{{album.gphoto$id.$t}}" class="album">        
+        <img ng-src="{{album.media$group.media$thumbnail[0].url}}" class=""></img>
+        <p class="album-info">      
+          <span class="album-name">{{album.title.$t}}</span>
+          <br/>
+          <span class="">
+            {{album.gphoto$numphotos.$t}}
+            <ng-pluralize count="{{album.gphoto$numphotos.$t}}" when="{1: 'Photo', 'other': 'Photos'}"></ng-pluralize>
+          </span>
+        </p> 
+        <div class="clearfix"></div>
+      </a>
+    </div>
+  </div> 
+</div>

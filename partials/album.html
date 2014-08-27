@@ -1,0 +1,45 @@
+<div id="spinner" style="display:none;">
+  <img id="spinner-image" ng-src="images/loader.GIF">
+</div>
+<div class="row">
+  <div class="col-lg-2 col-sm-2 photo-list">
+    <div ng-repeat="photo in album.feed.entry" class="list-thumb">    
+      <a href="" class="photo" ng-click="setMainImage(photo.gphoto$id.$t)">
+        <img ng-src="{{photo.media$group.media$thumbnail[1].url}}"
+         class="album">
+        <div class="clearfix"></div>
+      </a>
+    </div>
+  </div> 
+  <div class="col-lg-7 col-sm-7">
+    <img ng-src="{{mainImage.feed.media$group.media$content[0].url}}" class="main-image">
+  </div>
+  <div class="col-lg-3 col-sm-3 comments">
+    <div ng-if="(mainImage.feed.gphoto$commentingEnabled.$t == 'true')">
+      <h4>Comments</h4>
+      <p ng-if="(mainImage.feed.entry == undefined)">
+        There are no comments on this photo. Go ahead and make one!
+      </p> 
+      <div class="row comment" ng-repeat="comment in mainImage.feed.entry">
+        <div class="col-lg-3 col-sm-4 col-4">
+          <img ng-src="{{comment.author[0].gphoto$thumbnail.$t}}">
+        </div>
+        <div class="col-8 col-lg-9 col-sm-8">        
+          <b>{{comment.author[0].name.$t}}</b>
+          <p>{{comment.content.$t}}</p>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-lg-12 col-sm-12 col-12">
+          <form ng-submit="submit()" ng-controller="albumDetailController">
+            <textarea ng-model="text" name="text" class="form-control" placeholder="Write your comment"></textarea> 
+            <input type="submit" id="submit" value="Submit" class="btn btn-default btn-sm" style="margin: 10px 0;" />
+          </form>                
+        </div>
+      </div>
+    </div>
+    <p ng-if="(mainImage.feed.gphoto$commentingEnabled.$t == 'false')">
+      Commenting is not enabled on this photo.
+    </p>    
+  </div>
+</div>

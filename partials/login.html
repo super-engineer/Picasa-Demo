@@ -1,0 +1,56 @@
+<div class="header" id="content">
+  <div class="container">
+    <h1>Picasa Demo</h1>
+    <p style="font-size=18px;">Browse your Picasa albums and photos using a service completely built in AngularJs. Don't know how it is useful to any of you but its cool. :P</p>
+    <br/>
+    <p>Click on the button to <b>sign in</b> or <b>register</b></p>
+  </div>
+  <div class="container">
+    <span id="signinButton">
+      <span
+        class="g-signin"
+        data-callback="signinCallback"
+        data-clientid="465796428299-ajp8b9k5ea3q2iefoui68l715c4dp8pt.apps.googleusercontent.com"
+        data-cookiepolicy="http://picassa.lvh.me"
+        data-scope="https://picasaweb.google.com/data"
+        data-accesstype="online"
+        data-prompt="select_account">
+      </span>
+    </span>
+  </div>
+</div>
+
+<script type="text/javascript">
+  sessionStorage.access_token = '';
+  
+  (function() {
+   var po = document.createElement('script'); po.type = 'text/javascript'; po.async = true;
+   po.src = 'https://apis.google.com/js/client:plusone.js';
+   var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(po, s);
+  })();
+</script>
+<script type="text/javascript">
+ //  (function() {
+ //   var po = document.createElement('script'); po.type = 'text/javascript'; po.async = true;
+ //   po.src = 'https://apis.google.com/js/client:plusone.js';
+ //   var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(po, s);
+ // })();
+</script>
+<script type="text/javascript">
+  function signinCallback(authResult) {
+    console.log(authResult)
+    if (authResult['status']['signed_in']) {
+      sessionStorage.access_token = authResult['access_token'];
+      if (window.location.pathname != "/album")
+        window.location = "/#/albums";
+      document.getElementById('signinButton').setAttribute('style', 'display: none');
+    } else {
+      // Update the app to reflect a signed out user
+      // Possible error values:
+      //   "user_signed_out" - User is signed-out
+      //   "access_denied" - User denied access to your app
+      //   "immediate_failed" - Could not automatically log in the user
+      console.log('Sign-in state: ' + authResult['error']);
+    }
+  }  
+</script>
